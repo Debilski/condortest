@@ -1,0 +1,10 @@
+universe = vanilla
+executable = /usr/lib/condor/shim_dmtcp
+arguments = --log shim_dmtcp.$(CLUSTER).$(PROCESS).log \
+  --stdout job.$(CLUSTER).$(PROCESS).out \
+  --stderr job.$(CLUSTER).$(PROCESS).err \
+  ./printscript
+kill_sig = 2
+dmtcp_env = DMTCP_TMPDIR=./
+environment = $(dmtcp_env)
+queue

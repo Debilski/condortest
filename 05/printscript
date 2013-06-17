@@ -1,0 +1,10 @@
+#!/bin/sh
+
+orig_host=$( hostname )
+echo "initing $( hostname ) [$orig_host]" >> printscript.out
+  for i in $( seq 130 )
+  do echo "Hello $( hostname ) $i [$orig_host]" >> printscript.out
+  sleep 1
+done
+echo "done $( hostname ) [$orig_host]" >> printscript.out
+
