@@ -1,5 +1,5 @@
 universe = vanilla
-executable = /usr/lib/condor/shim_dmtcp
+executable = ./shim_dmtcp
 arguments = --log shim_dmtcp.$(CLUSTER).$(PROCESS).log \
   --stdout job.$(CLUSTER).$(PROCESS).out \
   --stderr job.$(CLUSTER).$(PROCESS).err \
