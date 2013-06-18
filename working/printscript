@@ -2,7 +2,7 @@
 
 orig_host=$( hostname )
 echo "initing $( hostname ) [$orig_host]" >> printscript.out
-  for i in $( seq 130 )
+  for i in $( seq 30 )
   do echo "Hello $( hostname ) $i [$orig_host]" >> printscript.out
   sleep 1
 done

@@ -259,26 +259,26 @@ checkpoint()
 	# tell me if ./dmtcp_restart_script.sh is present, which is written by
 	# the dmtcp_coordinator when I asked for the checkpoint, cause if it isn't
 	# then that is a DMTCP bug (or full file system!)
-	if [ -f "${CKPTDIR}dmtcp_restart_script.sh" ] ; then
-		logit "Found dmtcp_restart_script.sh. Good!"
+	if [ -f "${CKPTDIR}/dmtcp_restart_script.sh" ] ; then
+		logit "Found ${CKPTDIR}/dmtcp_restart_script.sh. Good!"
 
 		# if it is a symlink, convert it to a real file
-		if [ -h "${CKPTDIR}dmtcp_restart_script.sh" ] ; then
-			logit "Converting symlink ./dmtcp_restart_script.sh to real file."
+		if [ -h "${CKPTDIR}/dmtcp_restart_script.sh" ] ; then
+			logit "Converting symlink ${CKPTDIR}/dmtcp_restart_script.sh to real file."
 			if [ -x /usr/bin/readlink ] ; then
-				realfile=`/usr/bin/readlink ./dmtcp_restart_script.sh`
+				realfile=`/usr/bin/readlink ${CKPTDIR}/dmtcp_restart_script.sh`
 			else
-				realfile=`/bin/readlink ./dmtcp_restart_script.sh`
+				realfile=`/bin/readlink ${CKPTDIR}/dmtcp_restart_script.sh`
 			fi
-			/bin/rm ${CKPTDIR}dmtcp_restart_script.sh
-			/bin/mv "$realfile" "${CKPTDIR}dmtcp_restart_script.sh"
+			/bin/rm ${CKPTDIR}/dmtcp_restart_script.sh
+			/bin/mv "$realfile" "${CKPTDIR}/dmtcp_restart_script.sh"
 			if [ -f "$realfile" ] ; then
-				logit "Problem: $realfile was not converted to ./dmtcp_restart_script.sh"
+				logit "Problem: $realfile was not converted to ${CKPTDIR}/dmtcp_restart_script.sh"
 			fi
 		fi
 		logit "Next invocation is restart!"
 	else
-		logit "Didn't find dmtcp_restart_script.sh. Next invocation is initial!"
+		logit "Didn't find ${CKPTDIR}/dmtcp_restart_script.sh. Next invocation is initial!"
 		logit "This is bad and means DMTCP failed to write it, or a full fs."
 	fi
 
@@ -294,7 +294,7 @@ checkpoint()
 # If we've already checkpointed once, then return true, otherwise, false.
 is_restart()
 {
-	if [ -f "${CKPTDIR}dmtcp_restart_script.sh" ]; then
+	if [ -f "${CKPTDIR}/dmtcp_restart_script.sh" ]; then
 		return 1
 	fi
 
@@ -422,8 +422,8 @@ else
 	logit "DMTCP_PORT=$DMTCP_PORT"
 	logit "DMTCP_HOST=$DMTCP_HOST"
 	logit "DMTCP_RESTART_DIR=$DMTCP_RESTART_DIR"
-	logit "${CKPTDIR}dmtcp_restart_script.sh"
-	${CKPTDIR}dmtcp_restart_script.sh &
+	logit "${CKPTDIR}/dmtcp_restart_script.sh"
+	${CKPTDIR}/dmtcp_restart_script.sh &
 	wait %1
 	ret=$?
 	logit "Application returned: $ret"
@@ -432,7 +432,7 @@ else
 	rm -f dmtcp*Table*${DMTCP_PREFIX_ID}*
 	rm -f dmtcp*Map*${DMTCP_PREFIX_ID}*
 	rm -f dmtcp*List*${DMTCP_PREFIX_ID}*
-	rm -f ${CKPTDIR}dmtcp_restart_script.sh
+	rm -f ${CKPTDIR}/dmtcp_restart_script.sh
 	exit $ret;
 fi
 
